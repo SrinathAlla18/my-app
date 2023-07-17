@@ -1,4 +1,4 @@
-package com.srinath.customer;
+package com.srinath.clients.fraud;
 
 public record FraudCheckResponse(Boolean isFraudster) {
 }
