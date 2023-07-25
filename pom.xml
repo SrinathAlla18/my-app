@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.srinath</groupId>
@@ -16,10 +16,10 @@
     <module>customer</module>
     <module>fraud</module>
     <module>eureka-server</module>
-      <module>clients</module>
-      <module>notification</module>
-      <module>apigw</module>
-      <module>amqp</module>
+    <module>clients</module>
+    <module>notification</module>
+    <module>apigw</module>
+    <module>amqp</module>
   </modules>
 
   <properties>
@@ -29,6 +29,7 @@
     <spring.boot.maven.plugin.version>2.5.7</spring.boot.maven.plugin.version>
     <spring.boot.dependencies.version>2.5.7</spring.boot.dependencies.version>
     <spring-cloud.version>2020.0.3</spring-cloud.version>
+    <image>saisrinathalla/${project.artifactId}:${project.version}</image>
   </properties>
 
   <dependencyManagement>
@@ -75,6 +76,39 @@
             <execution>
               <goals>
                 <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>com.google.cloud.tools</groupId>
+          <artifactId>jib-maven-plugin</artifactId>
+          <version>3.1.4</version>
+          <configuration>
+            <from>
+              <image>eclipse-temurin:17</image>
+              <platforms>
+                <platform>
+                  <architecture>arm64</architecture>
+                  <os>linux</os>
+                </platform>
+                <platform>
+                  <architecture>amd64</architecture>
+                  <os>linux</os>
+                </platform>
+              </platforms>
+            </from>
+            <to>
+              <tags>
+                <tag>latest</tag>
+              </tags>
+            </to>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>build</goal>
               </goals>
             </execution>
           </executions>
